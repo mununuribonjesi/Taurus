@@ -1,0 +1,157 @@
+.card
+{
+ max-width: 300px;
+ min-width: 300px;
+ max-width: 300px;
+ min-width: 300px;
+
+background-color: #353b48 !important;
+ margin-top: 10px;
+
+}
+.location_button
+{
+    width: 200px;
+    color: #fff;
+    background-color: red !important;
+    border-color: white;
+}
+
+.location_button:focus
+{
+    width: 200px;
+    color: #fff;
+    background-color: green !important;
+    border-color: white;
+}
+.location_button:active
+{
+    width: 200px;
+    color: #fff;
+    background-color: green !important;
+    border-color: white;
+}
+.navbar-item
+{
+
+    color: white;
+}
+.autocomplete-dropdown-container 
+{
+    z-index: 99999;
+    color: lightgreen;
+    background-color:#212529 ;
+    margin-top: 15px;
+    opacity: 0.7;
+    border-radius: 10px;
+}
+
+.autocomplete-dropdown-container:hover
+{
+    z-index: 99999;
+    color: white;
+    background-color:#212529 ;
+    margin-top: 15px;
+    opacity: 0.7;
+    border-radius: 10px;
+}
+.col-sm{
+
+    flex-grow: 0;
+}
+
+.list-group-item {
+
+    max-height: 70px !important;
+    min-height: 70px !important;
+    background-color: aliceblue !important;
+    border: 1px solid #212529 !important;
+
+}
+
+.btn-primary.focus, .btn-primary:hover {
+    color: black;
+    background-color: yellow !important;
+    border: 1px solid #212529 !important;
+}
+
+body,html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #353b48 !important;
+    }
+
+    .searchbar{
+    margin-bottom: 50px;
+    margin-top: 50px;
+    height: 60px;
+    min-width: 0px;
+    background-color: #212529;
+    border-radius: 30px;
+    padding: 10px;
+    z-index: 99999;
+   
+    }
+
+.suggestion-item{
+    z-index: 99999;
+
+}
+.suggestions
+{
+
+    z-index: 99999;
+    color: #fff !important;
+    border-radius: 30px;
+    
+}
+
+.btn {
+    color: #fff;
+    background-color: #212529;
+    border-color: yellow;
+
+}
+
+    .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover .search_input{
+    padding: 0 10px;
+    width: 400px;
+    caret-color:yellow;
+    }
+
+    .searchbar .search_icon{
+    background: #212529;
+    color: yellow;
+    text-decoration: none;
+    }
+
+    .loading_icon
+    {
+        color: lightgreen;
+        text-decoration: none;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+    border-left: 1px solid white;
+    }
