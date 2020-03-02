@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import '../Events/events.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import PlacesAutocomplete, {
+import{
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
 import Moment from 'react-moment';
 import { Marker ,DirectionsRenderer } from"react-google-maps";
+import SearchBar from '../Search/searchBar';
+import EventData from '../Events/eventsData'
 
 const axios = require('axios');
 
@@ -105,8 +107,6 @@ class Events extends Component {
     this.componentDidMount();
   };
 
-
-
   componentDidMount() {
     this.setState({ isLoading: true });
     axios.get('http://www.skiddle.com/api/v1/events/search/?api_key=1981a0231405eeba6bbbdd38829c8501&latitude=' + this.state.latitude + '&longitude=' + this.state.longitude + '&limit=30&radius=10&eventcode=CLUB&order=date&description=1')
@@ -123,6 +123,7 @@ class Events extends Component {
   render() {
     const { events } = this.state;
     const isLoading = this.state.isLoading;
+
     return (
       <div>
         <div class="jumbotron jumbotron-fluid">
@@ -135,88 +136,19 @@ class Events extends Component {
           </div>
         </div>
 
+        <SearchBar address={this.state.address} onChange={this.handleChange} handleSelect={this.handleSelect}>
+          </SearchBar>
+
+          
+          <EventData isLoading={isLoading} events ={events} calcRoute={this.calcRoute}></EventData>
 
 
-        <PlacesAutocomplete
-          value={this.state.address}
-          onChange={this.handleChange}
-          onSelect={this.handleSelect}
-        >
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
 
-              <div className="container h-100">
-                <div className="d-flex justify-content-center h-100">
-                  <div className="searchbar">
-                    <input
-                      {...getInputProps({
-                        placeholder: 'Search Places ...',
-                        className: 'search_input',
-                        autoFocus: true
-                      })}
-                    />
-
-                    <a onClick={this.handleSelect} href="#" className="search_icon"><i class="fa fa-search"></i></a>
-
-                    <div className="autocomplete-dropdown-container text-center">
-                      {loading && <div class="fa-5x"><i class="fa fa-cog fa-spin"></i></div>}
-                      {suggestions.map(suggestion => (
-                        <div {...getSuggestionItemProps(suggestion)}>
-                          <span>{suggestion.description}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          )}
-        </PlacesAutocomplete>
-
-        <div className="container">
-
-          {isLoading ? (
-            <div class="fa-5x text-center"><i class="loading_icon fa fa-cog fa-spin"></i></div>
-          ) : (
-              <div className="row">
-                {
-                  events.length ?
-                    events.map(event =>
-                      <div className="col-4 col-offset-4">
-                        <div className="card" key={event.id} >
-                          <img class="card-img-top" src={event.largeimageurl} alt="Card image cap"></img>
-                          <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event: {event.eventname} </li>
-                            <li className="list-group-item">Venue: {event.venue.name} </li>
-                            <li className="list-group-item">Price: {event.entryprice} </li>
-                            <li className="list-group-item">location: {event.venue.town} </li>
-                            <li className="list-group-item">Date:
-                            <Moment format="D MMM YYYY" withTitle>
-                            {event.date} 
-                              </Moment>
-                            
-                             </li>
-                            <button onClick={() => this.calcRoute(event.venue.latitude,event.venue.longitude)} type="button" className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
-                          </ul>
-                        </div>
-                      </div>
-                    ) : null
-                }
-              </div>
-            )}
-        </div>
-
-      
         <Modal isOpen={this.state.show}>
           <ModalHeader toggle={this.toggleModal}>Response</ModalHeader>
           <ModalBody>
-
           <DirectionsRenderer
             directions={this.state.directions}/>
-    
-
-     
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleModal}>OK</Button>{' '}
