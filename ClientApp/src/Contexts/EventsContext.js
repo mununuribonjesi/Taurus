@@ -24,4 +24,4 @@ class EventsContextProviver extends Component {
     }
 }
 
-export default EventsContextProviver;
+export default EventsContextProvider;
