@@ -9,6 +9,7 @@ import Moment from 'react-moment';
 import { Marker ,DirectionsRenderer } from"react-google-maps";
 import SearchBar from '../Search/searchBar';
 import EventData from '../Events/eventsData'
+import GeoButton from './geoButton';
 
 const axios = require('axios');
 
@@ -91,7 +92,7 @@ class Events extends Component {
     this.setState({latitude: position.coords.latitude,longitude: position.coords.longitude}); 
     this.setState({currentLat: position.coords.latitude,currentLon: position.coords.longitude}); 
                                                            
-    this.componentDidMount();
+    this.getEvents();
   }
 
 
@@ -104,10 +105,10 @@ class Events extends Component {
       .then(results => getLatLng(results[0]))
       .then(latLng => this.setState({ longitude: latLng.lng, latitude: latLng.lat }))
       .catch(error => console.error('Error', error));
-    this.componentDidMount();
+    this.getEvents();
   };
 
-  componentDidMount() {
+  getEvents () {
     this.setState({ isLoading: true });
     axios.get('http://www.skiddle.com/api/v1/events/search/?api_key=1981a0231405eeba6bbbdd38829c8501&latitude=' + this.state.latitude + '&longitude=' + this.state.longitude + '&limit=30&radius=10&eventcode=CLUB&order=date&description=1')
       .then(response => {
@@ -125,24 +126,20 @@ class Events extends Component {
     const isLoading = this.state.isLoading;
 
     return (
-      <div>
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1 class="display-4 text-center">Taurus</h1>
-            <div className="text-center">
-              <button onClick={this.getLocation} type="button" class="btn location_button btn-success">
-                <i onClick={this.getLocation} class="fa-3x fa fa-map-marker" aria-hidden="true"></i>
-              </button></div>
-          </div>
-        </div>
+      
+    <div> 
+      <GeoButton getLocation={this.getLocation}/>
+        <SearchBar 
+            address={this.state.address} 
+            onChange={this.handleChange} 
+            handleSelect={this.handleSelect}>
+        </SearchBar>  
 
-        <SearchBar address={this.state.address} onChange={this.handleChange} handleSelect={this.handleSelect}>
-          </SearchBar>
-
-          
-          <EventData isLoading={isLoading} events ={events} calcRoute={this.calcRoute}></EventData>
-
-
+        <EventData 
+            isLoading={isLoading} 
+            events ={events} 
+            calcRoute={this.calcRoute}>
+        </EventData>
 
         <Modal isOpen={this.state.show}>
           <ModalHeader toggle={this.toggleModal}>Response</ModalHeader>
@@ -154,8 +151,8 @@ class Events extends Component {
             <Button color="primary" onClick={this.toggleModal}>OK</Button>{' '}
           </ModalFooter>
         </Modal>
-
-      </div>
+    </div>
+    
     );
   }
 }
