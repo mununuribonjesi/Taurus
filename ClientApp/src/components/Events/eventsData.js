@@ -23,7 +23,7 @@ const eventData = (props) => <div className="container">
                     </Moment>
                   
                    </li>
-                  <button type="button" className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
+                  <button type="button" onClick={props.getDirections} className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
                 </ul>
               </div>
             </div>
