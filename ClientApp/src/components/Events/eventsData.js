@@ -23,7 +23,7 @@ const eventData = (props) => <div className="container">
                     </Moment>
                   
                    </li>
-                  <button onClick={() => props.calcRoute(event.venue.latitude,event.venue.longitude)} type="button" className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
+                  <button type="button" className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
                 </ul>
               </div>
             </div>
@@ -32,7 +32,5 @@ const eventData = (props) => <div className="container">
     </div>
   )}
 </div>
-
-
 
 export default eventData

@@ -7,6 +7,7 @@ import { News } from './components/News/News';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Transport } from './components/Transport/Transport';
 import EventsContextProvider from './Contexts/EventsContext';
+
 class App extends Component {
   render(){
     return(
