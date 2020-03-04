@@ -4,9 +4,10 @@ import SearchBar from '../Search/searchBar';
 import EventData from '../Events/eventsData'
 import GeoButton from './geoButton';
 import eventContext,{EventsContext} from '../../Contexts/EventsContext';
-import {withScriptjs,withGoogleMap,GoogleMap,Marker,DirectionsRenderer} from "react-google-maps";
+import {withGoogleMap,GoogleMap,DirectionsRenderer} from "react-google-maps";
 import { Modal,Button } from 'react-bootstrap';
 const google = window.google;
+const DirectionsService = new google.maps.DirectionsService();
 
 
 class Events extends Component {
@@ -16,11 +17,45 @@ class Events extends Component {
   super(props)
 
 
-}
+  this.state ={
+    directions: null,
+    show: false
+  }
 
-state = {
-  directions:null,
-}
+  this.mapModal = this.mapModal.bind(this);
+
+  }
+
+  mapModal(eventlatitude,eventlongitude,latitude,longitude)
+  {
+
+    this.setState({show:!this.state.show});
+
+    this.getRoute(eventlatitude,eventlongitude,latitude,longitude)
+  }
+
+  getRoute(eventlatitude,eventlongitude,latitude,longitude)
+  {
+      DirectionsService.route({
+          origin: new google.maps.LatLng(latitude,longitude),
+          destination: new google.maps.LatLng(eventlatitude,eventlongitude),
+          travelMode: google.maps.TravelMode.DRIVING,
+      },(result,status) =>{
+          if(status === google.maps.DirectionsStatus.OK)
+          {
+           
+            this.setState({directions: result});
+
+            
+          }
+
+          else{
+              console.error(`error festching directions ${result}`);
+          }
+
+      })
+
+  }
 
 
   render() {
@@ -35,14 +70,16 @@ state = {
         />
       </GoogleMap>
     ));
-    
 
     return (
 
       <EventsContext.Consumer>  
         {(context) => {      
             var {events,address,latitude,longitude,clatitude,clongitude,location,isLoading,show,directions,
-            getLocation,getCoordinates,handleChange,handleSelect,toggleMap} = context;
+            getLocation,getCoordinates,handleChange,handleSelect} = context;
+
+  
+            
 
     return(
       <div> 
@@ -61,32 +98,29 @@ state = {
             events ={events}
             latitude ={clatitude}
             longitude ={clongitude}
-            getRoute = {toggleMap}>
+            mapModal = {this.mapModal}>
   
         </EventData>
 
-        <Modal show={show}  animation={false}>
+        <Modal show={this.state.show} hide={this.mapModal} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Map</Modal.Title>
         </Modal.Header>
         <Modal.Body><MapWithAMarker
   googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gdKfFl8gePtgZT8kl8lPJaxg16Wc5YQ&libraries=places,drawing,geometry"
   loadingElement={<div style={{ height: `100%` }} />}
-  containerElement={<div style={{ height: `200px` }} />}
+  containerElement={<div className="map" style={{ height: `500px`}} />}
   mapElement={<div style={{width:`100%`, height: `100%` }} />}
         /></Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">
+          <Button onClick={this.mapModal} variant="secondary">
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
-        
-        </div>
+      </Modal>    
+      </div>
           )
         }}   
-
-  
         </EventsContext.Consumer>
     );
   }

@@ -17,8 +17,6 @@ class App extends Component {
           <Switch>
             <EventsContextProvider> 
             <Route exact path= "/" component={Home} />
-            <Route exact path= "/News" component={News} />
-            <Route exact path= "/Transport" component={Transport}/>
             </EventsContextProvider>
           </Switch>
         </Router>

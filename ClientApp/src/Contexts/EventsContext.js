@@ -4,8 +4,8 @@ import{
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-const google = window.google;
-const DirectionsService = new google.maps.DirectionsService();
+
+
 //creating Auth context
 
 export const EventsContext = createContext();
@@ -32,37 +32,16 @@ class EventsContextProvider extends Component {
     this.getLocation = this.getLocation.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
 
+
+
       
     }
 
 
-    toggleMap(eventlatitude,eventlongitude,latitude,longitude)
-    {
-      this.setState({show: !this.state.show});
+  
 
-      this.getRoute(eventlatitude,eventlongitude,latitude,longitude)
-    }
 
-    getRoute(eventlatitude,eventlongitude,latitude,longitude)
-    {
-        DirectionsService.route({
-            origin: new google.maps.LatLng(latitude,longitude),
-            destination: new google.maps.LatLng(eventlatitude,eventlongitude),
-            travelMode: google.maps.TravelMode.DRIVING,
-        },(result,status) =>{
-            if(status === google.maps.DirectionsStatus.OK)
-            {
-                console.log(result)
-              
-            }
   
-            else{
-                console.error(`error festching directions ${result}`);
-            }
-  
-        })
-  
-    }
  
     getLocation() {
 
@@ -74,9 +53,7 @@ class EventsContextProvider extends Component {
 
       getCoordinates(position) {
 
-        this.setState({latitude: position.coords.latitude,longitude: position.coords.longitude}); 
-        this.setState({clatitude: position.coords.latitude,clongitude: position.coords.longitude}); 
-                                                               
+        this.setState({latitude: position.coords.latitude,longitude: position.coords.longitude});                                                            
         this.getEvents();
       }
     
@@ -100,7 +77,6 @@ class EventsContextProvider extends Component {
         + '&limit=30&radius=10&eventcode=CLUB&order=date&description=1')
           .then(response => {
             this.setState({ events: response.data.results });
-            console.log(this.state.events);
           })
           .catch(error => {
             console.log(error)
@@ -113,7 +89,7 @@ class EventsContextProvider extends Component {
             <EventsContext.Provider 
                 value={{...this.state,getLocation:this.getLocation,clatitude:this.state.clatitude,
                   clongitude:this.state.clongitude,
-                getCoordinates:this.getCoordinates,handleChange:this.handleChange,handleSelect:this.handleSelect,toggleMap:this.toggleMap}}>
+                getCoordinates:this.getCoordinates,handleChange:this.handleChange,handleSelect:this.handleSelect,getRoute:this.getRoute}}>
                 {this.props.children}
             </EventsContext.Provider>
         )

@@ -20,10 +20,9 @@ const eventData = (props) => <div className="container">
                   <li className="list-group-item">Date:
                   <Moment format="D MMM YYYY" withTitle>
                   {event.date} 
-                    </Moment>
-                  
+                    </Moment>      
                    </li>
-                  <button type="button" onClick={props.getRoute(event.venue.latitude,event.venue.longitude,props.latitude,props.longitude)} className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
+                  <button type="button" onClick={() => {props.mapModal(event.venue.latitude,event.venue.longitude,props.latitude,props.longitude)}} className="btn btn-primary"><div class="fa-2x"><i class="fa fa-map"></i></div></button>
                 </ul>
               </div>
             </div>

@@ -46,6 +46,9 @@ background-color: #353b48 !important;
     border-radius: 10px;
 }
 
+.modal {
+    z-index: 99999;
+}
 .autocomplete-dropdown-container:hover
 {
     z-index: 99999;
