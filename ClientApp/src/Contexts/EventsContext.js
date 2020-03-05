@@ -31,18 +31,10 @@ class EventsContextProvider extends Component {
 
     this.getLocation = this.getLocation.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
-
-
-
       
     }
 
-
-  
-
-
-  
- 
+    
     getLocation() {
 
         if (navigator.geolocation) {

@@ -19,34 +19,56 @@ class Events extends Component {
 
   this.state ={
     directions: null,
-    show: false
+    show: false,
+    route:false,
+    clat:'',
+    clong:'',
+
+
   }
 
   this.mapModal = this.mapModal.bind(this);
+  this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
   }
 
-  mapModal(eventlatitude,eventlongitude,latitude,longitude)
+  currrentLocation()
   {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getCurrentPosition);
 
+    }
+
+  }
+
+
+  getCurrentPosition(position) {
+
+    this.setState({clat: position.coords.latitude,clong: position.coords.longitude});    
+                                                            
+  }
+
+  mapModal(eventlatitude,eventlongitude,travelMode)
+  {
     this.setState({show:!this.state.show});
-
-    this.getRoute(eventlatitude,eventlongitude,latitude,longitude)
+    this.currrentLocation();
+    this.setState({route:!this.state.route});
+    this.getRoute(eventlatitude,eventlongitude,travelMode);
+  
   }
 
-  getRoute(eventlatitude,eventlongitude,latitude,longitude)
+  
+  getRoute(eventlatitude,eventlongitude,travelMode)
   {
+
       DirectionsService.route({
-          origin: new google.maps.LatLng(latitude,longitude),
+          origin: new google.maps.LatLng(this.state.clat,this.state.clong),
           destination: new google.maps.LatLng(eventlatitude,eventlongitude),
-          travelMode: google.maps.TravelMode.DRIVING,
+          travelMode: google.maps.TravelMode  = "WALKING",
       },(result,status) =>{
           if(status === google.maps.DirectionsStatus.OK)
           {
-           
-            this.setState({directions: result});
-
-            
+            this.setState({directions: result});          
           }
 
           else{
@@ -77,14 +99,8 @@ class Events extends Component {
         {(context) => {      
             var {events,address,latitude,longitude,clatitude,clongitude,location,isLoading,show,directions,
             getLocation,getCoordinates,handleChange,handleSelect} = context;
-
-  
-            
-
     return(
       <div> 
-        
-
       <GeoButton getLocation={getLocation}>
       </GeoButton>
         <SearchBar 
@@ -98,26 +114,37 @@ class Events extends Component {
             events ={events}
             latitude ={clatitude}
             longitude ={clongitude}
-            mapModal = {this.mapModal}>
-  
+            MapWithAMarker = {MapWithAMarker}
+            mapModal = {this.mapModal}
+            route = {this.state.route}>
+     
         </EventData>
 
-        <Modal show={this.state.show} hide={this.mapModal} animation={false}>
+        <Modal show={this.state.show} hide={this.mapModal} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>Map</Modal.Title>
         </Modal.Header>
         <Modal.Body><MapWithAMarker
-  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gdKfFl8gePtgZT8kl8lPJaxg16Wc5YQ&libraries=places,drawing,geometry"
-  loadingElement={<div style={{ height: `100%` }} />}
-  containerElement={<div className="map" style={{ height: `500px`}} />}
-  mapElement={<div style={{width:`100%`, height: `100%` }} />}
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gdKfFl8gePtgZT8kl8lPJaxg16Wc5YQ&libraries=places,drawing,geometry"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div className="map" style={{ height: `500px`}} />}
+          mapElement={<div style={{width:`100%`, height: `100%` }} />}
         /></Modal.Body>
         <Modal.Footer>
+    
+          <Button onClick={this.mapModal} variant="secondary">
+           <i class="fas fa-walking"> </i>
+          </Button>
+          <Button onClick={this.mapModal} variant="secondary">
+          <i class="fas fa-car"></i>
+          </Button>
           <Button onClick={this.mapModal} variant="secondary">
             Close
           </Button>
+
         </Modal.Footer>
-      </Modal>    
+      </Modal>  
+
       </div>
           )
         }}   
