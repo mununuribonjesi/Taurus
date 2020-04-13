@@ -14,7 +14,7 @@ function Navbar(){
   <div className="collapse navbar-collapse" id="navbarText">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item active">
-        <a className="nav-link" href="/">Events <span class="sr-only">(current)</span></a>
+        <a className="nav-link" href="/">Events <span className="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>

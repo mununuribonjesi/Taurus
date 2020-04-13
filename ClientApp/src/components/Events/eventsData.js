@@ -32,4 +32,4 @@ const eventData = (props) => <div className="container">
   )}
 </div>
 
-export default eventData
+export default eventData 

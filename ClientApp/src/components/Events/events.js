@@ -41,7 +41,6 @@ class Events extends Component {
 
   }
 
-
   getCurrentPosition(position) {
 
     this.setState({clat: position.coords.latitude,clong: position.coords.longitude});    
@@ -117,7 +116,6 @@ class Events extends Component {
             MapWithAMarker = {MapWithAMarker}
             mapModal = {this.mapModal}
             route = {this.state.route}>
-     
         </EventData>
 
         <Modal show={this.state.show} hide={this.mapModal} animation={true}>
