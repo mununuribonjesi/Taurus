@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
-import { News } from './components/News/News';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Transport } from './components/Transport/Transport';
 import EventsContextProvider from './Contexts/EventsContext';
 
 class App extends Component {
