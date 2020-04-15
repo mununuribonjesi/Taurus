@@ -15,7 +15,7 @@ class Events extends Component {
   constructor(props){
   super(props)
 
-  this.state ={directions: null,show: false,route:false,clat:'',clong:'',}
+  this.state ={directions: null,show: false,clat:'',clong:'',}
 
   this.mapModal = this.mapModal.bind(this);
   this.getCurrentPosition = this.getCurrentPosition.bind(this);
@@ -37,10 +37,10 @@ class Events extends Component {
 
   mapModal(eventlatitude,eventlongitude,travelMode)
   {
-    this.setState({show:!this.state.show});
-    this.currrentLocation();
-    this.setState({route:!this.state.route});
+
+
     this.getRoute(eventlatitude,eventlongitude,travelMode);
+    this.setState({show:!this.state.show},() => this.currrentLocation());
   
   }
 

@@ -27,7 +27,6 @@ class EventsContextProvider extends Component {
             directions: null
           }
 
-
     this.getLocation = this.getLocation.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
       
