@@ -1,6 +1,4 @@
 import React from 'react'
-import Moment from 'react-moment';
-
 const geoButton = (props) => <div>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">

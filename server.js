@@ -1,16 +1,17 @@
-"use strict"
+'use strict'
+const express = require('express')
+const app = express()
+const port = 5000
+const api = require('./controllers/api');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
-const express = require('express');
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.json());
+app.use('/api',api);
 
-const app = express();
+app.get('/', (req, res) => res.send('Hello World!'))
 
-
-
-
-
-app.set("port", process.env.PORT || 5000);
-
-app.listen(app.get("port"), () => {
-    console.log(`AFF Express Server runnning 
-    at http://localhost:${app.get("port")}`);
-});
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

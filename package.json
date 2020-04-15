@@ -4,7 +4,7 @@
   "description": "react express restful web application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon app",
     "client": "cd clientApp && npm start",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\""
   },
@@ -12,7 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "path": "^0.12.7",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {

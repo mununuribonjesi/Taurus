@@ -9,23 +9,13 @@ import { Modal,Button } from 'react-bootstrap';
 const google = window.google;
 const DirectionsService = new google.maps.DirectionsService();
 
-
 class Events extends Component {
 
   static contextType = eventContext;
   constructor(props){
   super(props)
 
-
-  this.state ={
-    directions: null,
-    show: false,
-    route:false,
-    clat:'',
-    clong:'',
-
-
-  }
+  this.state ={directions: null,show: false,route:false,clat:'',clong:'',}
 
   this.mapModal = this.mapModal.bind(this);
   this.getCurrentPosition = this.getCurrentPosition.bind(this);
@@ -41,11 +31,8 @@ class Events extends Component {
 
   }
 
-
   getCurrentPosition(position) {
-
-    this.setState({clat: position.coords.latitude,clong: position.coords.longitude});    
-                                                            
+    this.setState({clat: position.coords.latitude,clong: position.coords.longitude});                                                              
   }
 
   mapModal(eventlatitude,eventlongitude,travelMode)
@@ -57,7 +44,6 @@ class Events extends Component {
   
   }
 
-  
   getRoute(eventlatitude,eventlongitude,travelMode)
   {
 
@@ -97,8 +83,8 @@ class Events extends Component {
 
       <EventsContext.Consumer>  
         {(context) => {      
-            var {events,address,latitude,longitude,clatitude,clongitude,location,isLoading,show,directions,
-            getLocation,getCoordinates,handleChange,handleSelect} = context;
+            var {events,address,clatitude,clongitude,isLoading,
+            getLocation,handleChange,handleSelect} = context;
     return(
       <div> 
       <GeoButton getLocation={getLocation}>
