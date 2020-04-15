@@ -9,7 +9,7 @@ const eventData = (props) => <div className="container">
       {
         props.events.length ?
           props.events.map(event =>
-            <div className="col-4 col-offset-4">
+            <div className="col">
               <div className="card" key={event.id} >
                 <img class="card-img-top" src={event.largeimageurl} alt="Card image cap"></img>
                 <ul className="list-group list-group-flush">
