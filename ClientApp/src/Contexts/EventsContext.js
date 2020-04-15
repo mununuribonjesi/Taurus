@@ -5,7 +5,6 @@ import{
   getLatLng
 } from "react-places-autocomplete";
 
-
 //creating Auth context
 
 export const EventsContext = createContext();
@@ -34,7 +33,6 @@ class EventsContextProvider extends Component {
       
     }
 
-    
     getLocation() {
 
         if (navigator.geolocation) {
@@ -64,9 +62,14 @@ class EventsContextProvider extends Component {
 
       getEvents (){
         this.setState({ isLoading: true });
-        axios.get('http://www.skiddle.com/api/v1/events/search/?api_key=1981a0231405eeba6bbbdd38829c8501&latitude=' 
-        + this.state.latitude + '&longitude=' + this.state.longitude 
-        + '&limit=30&radius=10&eventcode=CLUB&order=date&description=1')
+
+        axios.get('http://localhost:5000/api/events',{
+          params:{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude
+          }
+        
+          })
           .then(response => {
             this.setState({ events: response.data.results });
           })
@@ -75,7 +78,7 @@ class EventsContextProvider extends Component {
           })
         this.setState({ isLoading: false });
       }
-
+      
     render() {
         return (
             <EventsContext.Provider 

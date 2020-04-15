@@ -2,13 +2,18 @@
 
 const fetch = require("node-fetch")
 
-
 const getEvents = async (req,res) => {
+
+    var latitude = parseInt(req.query.latitude);
+    var longitude = parseInt(req.query.longitude);
+
+    console.log(req.query.latitude);
+
     var url = new URL("http://www.skiddle.com/api/v1/events/search/"),
     params = {
         api_key:'1981a0231405eeba6bbbdd38829c8501',
-        latitude:53.483959, 
-        longitude: -2.244644,
+        latitude:latitude, 
+        longitude:longitude,
         limit:30,
         radius:10,
         eventcode:'CLUB',
@@ -31,3 +36,5 @@ const getEvents = async (req,res) => {
 module.exports ={
     getEvents
 }
+
+
