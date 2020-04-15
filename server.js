@@ -1,8 +1,8 @@
 'use strict'
 
-const express = require('express')
-const app = express()
-const port = 5000
+const express = require('express');
+const app = express();
+const port = 5000;
 const api = require('./controllers/api');
 var bodyParser = require('body-parser');
 var cors = require('cors');
